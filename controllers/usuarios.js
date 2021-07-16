@@ -9,7 +9,6 @@ const usuariosGet = (req=request, res=response) =>{
     res.status(201).json({
         nombre,
         apellido,
-        apikey,
         messsage:'Get API - controlador'});
   }
 
