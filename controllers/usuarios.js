@@ -1,7 +1,15 @@
 const {response, request} = require('express')
 const bcryptjs = require('bcryptjs');
 const Usuario = require('../models/usuario');
+const path = require('path');
 
+
+const usuariosGetPrueba =(req,res)=>{
+  //res.status(200).send('OK');
+  res.sendFile(path.resolve('public/prueba/prueba.html'));
+  //res.redirect('http://www.infobae.com');
+  //res.send('<h1>Hola Mundoooooo</h1>');
+}
 
 const usuariosGet =async (req=request, res=response) =>{
     //const query = req.query;
@@ -66,16 +74,17 @@ const usuariosPost =async (req, res=response) =>{
 
 const usuariosDelete =async (req, res=response) =>{
     const {id} = req.params;
+    //const {uid}=req.uid;
+    //const usuarioAutenticado=req.usuarioAutenticado;
     
     //BORRADO FISICO
     //const usuario = await Usuario.findByIdAndDelete(id);
-
     const usuario = await Usuario.findByIdAndUpdate(id,{estado:false});
-
 
     res.json({  
       id,
-      usuario});
+      usuario
+    });
   }
 
 const usuariosPatch= (req, res=response) =>{
@@ -85,6 +94,7 @@ const usuariosPatch= (req, res=response) =>{
   }
 
 module.exports={
+    usuariosGetPrueba,
     usuariosGet,
     usuariosPut,
     usuariosPost,

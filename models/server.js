@@ -7,7 +7,7 @@ class Server {
         this.app= express();
         this.port =process.env.PORT;
         this.usuariosPath='/api/usuarios';
-        //this.productPath='/api/productos';
+        this.authPath='/api/auth/';
 
         //CONECTAR A BASE DE DATOS
         this.conectarDB();
@@ -28,19 +28,16 @@ class Server {
 
         //CORS
         this.app.use(cors());
-
         //Lectura y parseo del Body
         this.app.use(express.json())
-
         //Directorio publico.
         this.app.use(express.static('public'))
     }
 
     route(){
-
+        this.app.use(this.authPath,require('../routes/auth'));
         this.app.use(this.usuariosPath,require('../routes/usuarios'));
-        //this.app.use(this.productPath,require('../routes/usuarios'));
-        
+        this.app.use('',require('../routes/usuarios'));        
     }
 
     listen(){

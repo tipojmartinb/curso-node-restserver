@@ -28,12 +28,14 @@ const UsuarioSchemma = Schema({
     },
     google:{
         type:Boolean,
-        default:false
+        default:false,
     }
+
 })
 
 UsuarioSchemma.methods.toJSON = function (){   //SOBREESCRITURA DE METODOS NATIVOS DE OBJETOS. En este caso sobreescribo toJSON.
-    const {__v,password,...usuario} = this.toObject();
+    const {__v,password,_id,...usuario} = this.toObject();
+    usuario.uid=_id;
     return usuario;
 }
 
