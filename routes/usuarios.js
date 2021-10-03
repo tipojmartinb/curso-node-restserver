@@ -11,8 +11,6 @@ const { validarCampos,
 } = require('../middlewares');
 
 
-
-
 const router = Router();
 
 //Prueba levantar index

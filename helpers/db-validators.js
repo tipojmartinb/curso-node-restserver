@@ -1,3 +1,5 @@
+const { request } = require('express');
+const { Categoria,Producto } = require('../models');
 const Role = require('../models/rol'); //Importo el modelo Role
 const Usuario = require('../models/usuario'); //Importo el modelo Usuario
 
@@ -16,7 +18,7 @@ const existeEmail = async(correo='')=>{
         throw new Error (`El email ${correo} ya existe`);
     }
 }   
-//VERIFICAR SI CORREO EXISTE
+//VERIFICAR SI ES VALIDO EL ID DE USUARIO
 const esIdValido = async(id='')=>{
     const existeId = await Usuario.findById(id);
     if (!existeId){
@@ -24,4 +26,24 @@ const esIdValido = async(id='')=>{
     }
 }   
 
-module.exports={esRolValido,existeEmail,esIdValido}
+//VERIFICAR SI ES VALIDO EL ID DE CATEGORIA
+
+const existeCategoria = async (id='')=>{
+    const existeId = await Categoria.findById(id);
+    if (!existeId){
+        throw new Error (`El id de categoria no existe`);
+    }
+    request.categoriaValida = existeId;
+}
+
+const existeProducto = async (id='')=>{
+    const existeId = await Producto.findById(id);
+    if (!existeId){
+        throw new Error (`El id de producto no existe`);
+    }
+    request.productoValidado = existeId;
+}
+
+
+
+module.exports={esRolValido,existeEmail,esIdValido,existeCategoria,existeProducto}
