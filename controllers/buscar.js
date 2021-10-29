@@ -65,21 +65,19 @@ const buscarProductos = async (termino='',res=response)=>{
     const regEx = new RegExp(termino,'i');
 
     const productos = await Producto.find({
-        $or:[{nombre:regEx},{descripcion:regEx},{categoria: ObjectId("6137af765919d43e00ecddc1")}],
+        $or:[{nombre:regEx},{descripcion:regEx},{categoria:termino}],
         $and:[{estado:true}],        
     })
     .populate('usuario','nombre')
     .populate('categoria','nombre');
 
-
-    /*const productos = await Producto.find({categoria: '6137af765919d43e00ecddc1'})
-    .populate('usuario','nombre')
-    .populate('categoria','nombre');*/
-
     res.json({
         result:productos,
     })
 }
+
+
+
 
 const buscar = async (req,res=response)=>{
 
